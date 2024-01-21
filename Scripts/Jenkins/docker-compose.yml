@@ -1,0 +1,46 @@
+version: '3.8'
+
+x-custom:
+  project_name: ${COMPOSE_PROJECT_NAME}
+
+services:
+  jenkins:
+    image: ${CUSTOMIZED_IMAGE_NAME}
+    container_name: ${JENKINS_CONTAINER_NAME}
+    networks:
+      jenkins:
+        aliases:
+          - docker-network
+    environment:
+      - DOCKER_HOST=tcp://docker-network:12376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+    volumes:
+      - ${JENKINS_IMAGE_VOLUMES}\jenkins-docker-certs:/certs/client
+      - ${JENKINS_IMAGE_VOLUMES}\jenkins-data:/var/jenkins_home
+    ports:
+      - "18080:8080"
+      - "50000:50000"
+    depends_on:
+      - jenkins-docker-dind
+
+
+  jenkins-docker-dind:
+    image: docker:dind
+    container_name: jenkins_docker
+    networks:
+      jenkins:
+        aliases:
+          - docker-network
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    volumes:
+      - ${JENKINS_IMAGE_VOLUMES}\jenkins-data:/var/jenkins_home
+      - ${JENKINS_IMAGE_VOLUMES}\jenkins-docker-certs:/certs/client
+    ports:
+      - "12376:2376"
+    privileged: true
+
+networks:
+  jenkins:
+    driver: bridge
