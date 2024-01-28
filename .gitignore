@@ -1,4 +1,7 @@
 /.idea/
+!/.idea/dataSources/
+!/.idea/dataSources.local.xml
+!/.idea/dataSources.xml
 
 /Volumes/
 !/Volumes/README.md
