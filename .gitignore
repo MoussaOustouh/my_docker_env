@@ -4,4 +4,6 @@
 !/.idea/dataSources.xml
 
 /Volumes/
+/Volumes-my_docker_env/
+!/Volumes-my_docker_env/README.md
 !/Volumes/README.md
