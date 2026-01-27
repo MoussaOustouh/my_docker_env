@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   sonarqube:
-    image: sonarqube:9.9.3-community
+    image: sonarqube:25.12.0.117093-community
     container_name: ${SONARQUBE_CONTAINER_NAME}
     networks:
       - sonarnet
