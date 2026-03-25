@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:7.2-alpine
+    container_name: ${REDIS_CONTAINER_NAME}
+    networks:
+      - redisnet
+    volumes:
+      - ${REDIS_DATA_VOLUME}:/data
+    ports:
+      - "16379:6379"
+    command: redis-server --appendonly yes
+
+networks:
+  redisnet:
+    driver: bridge
