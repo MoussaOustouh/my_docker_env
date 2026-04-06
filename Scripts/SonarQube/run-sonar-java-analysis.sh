@@ -53,9 +53,9 @@ JAVA_HOME="$JAVA17_HOME" \
 PATH="$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH" \
 
 # Navigate to project directory (change as needed)
-cd rami/wrm-gateway
-PROJECT_KEY='wtt-wrm_wrm-gateway'
-PROJECT_NAME='wrm-gateway'
+cd .
+PROJECT_KEY='Spring-tests'
+PROJECT_NAME='Spring_tests'
 
 # SonarQube configuration
 SONAR_HOST_URL="http://host.docker.internal:19000"

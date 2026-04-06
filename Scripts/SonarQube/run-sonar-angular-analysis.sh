@@ -3,15 +3,15 @@
 # Script to run SonarQube analysis for Angular
 # --------------------------------------------
 
-# Install SonarScanner globally if not already installed
-# npm install -g @sonar/scan
+# Install SonarScanner globally if not already installed (or as a local dev dependency in your project)
+# npm install -g @sonar/scan   or   npm install --save-dev @sonar/scan
 
 set -x
 
 # Navigate to Angular project directory (change as needed)
-cd rami/wrm-frontend
-PROJECT_KEY='wtt-wrm_wrm-frontend'
-PROJECT_NAME='wrm-frontend'
+cd .
+PROJECT_KEY='Angular-tests'
+PROJECT_NAME='Angular tests'
 
 # SonarQube configuration
 SONAR_HOST_URL="http://host.docker.internal:19000"
@@ -37,15 +37,18 @@ SONAR_AUTH_TOKEN=""
 #    sonar.typescript.lcov.reportPaths=reports/ng-coverage.lcov.info
 # -------------------------------------------------------------------------------------------------------------------------------------
 
+# Run Angular tests with coverage
+ng test --code-coverage --watch=false
 
 # Run SonarScanner
 npx sonar \
   -Dsonar.projectKey="$PROJECT_KEY" \
   -Dsonar.projectName="$PROJECT_NAME" \
-  -Dsonar.sources=src \
-  -Dsonar.test=src \
+  -Dsonar.sources=src/app \
+  -Dsonar.tests=src/app \
   -Dsonar.host.url="$SONAR_HOST_URL" \
   -Dsonar.token="$SONAR_AUTH_TOKEN" \
+  -Dsonar.test.inclusions=**/*.spec.ts \
   -Dsonar.exclusions="node_modules/**,dist/**,**/*.spec.ts" \
   -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info \
   -Dsonar.qualitygate.wait=true
