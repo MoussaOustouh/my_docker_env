@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.3
+    container_name: ${KEYCLOAK_CONTAINER_NAME}
+    networks:
+      - keycloaknet
+    environment:
+      - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
+      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
+    command:
+      - start-dev
+    volumes:
+      - ${KEYCLOAK_DATA_VOLUME}:/opt/keycloak/data
+    ports:
+      - "18081:8080"
+
+networks:
+  keycloaknet:
+    driver: bridge
