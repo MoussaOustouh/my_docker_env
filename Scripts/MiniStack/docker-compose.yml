@@ -1,0 +1,16 @@
+services:
+  ministack:
+    image: nahuelnucera/ministack:1.1.9
+    container_name: ${MINISTACK_CONTAINER_NAME}
+    networks:
+      - ministacknet
+    volumes:
+      - ${MINISTACK_DATA_VOLUME}:/data
+    ports:
+      - "14566:4566"
+    environment:
+      - MINISTACK_DATA_PATH=/data
+
+networks:
+  ministacknet:
+    driver: bridge
